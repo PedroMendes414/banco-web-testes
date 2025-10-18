@@ -1,24 +1,16 @@
-describe('Transferencias', ()=> {
+ describe('Transferencias', ()=> {
     beforeEach(()=> {
         cy.visit('/')
-        cy.fixture('credenciais').then(credenciais => {
-        cy.get('#username').click().type(credenciais.valida.usuario)
-        cy.get('#senha').click().type(credenciais.valida.senha)
-
-        cy.contains('button', 'Entrar').click()
-     })
+        cy.fazerLoginComCredenciaisValidas()
 
     })
     it('Deve transferir quando informo dados e valor válidos', ()=> {
-        cy.get('label[for= "conta-origem"]').parent().as('campo-conta-origem')
-        cy.get('@campo-conta-origem').click()
-        cy.get('@campo-conta-origem').contains('David Villa').click()
-        cy.get('label[for= "conta-destino"]').parent().as('campo-conta-destino')
-        cy.get('@campo-conta-destino').click()
-        cy.get('@campo-conta-destino').contains('João da Silva').click()
-        cy.get('#valor').click().type(30)
-
-        cy.contains('button', 'Transferir').click()
-        cy.get('.toast').should('have.text', 'Transferência realizada!')
+        cy.realizarTransferencia('David Villa', 'João da Silva', '11')
+        cy.verificarmensagemNoToast('Transferência realizada!')
     })
-})
+
+    it('Deve apresentar erro quando tentar transferir mais que 5000 sem o token', ()=> {
+        cy.realizarTransferencia('David Villa', 'João da Silva', '5000.01')
+        cy.verificarmensagemNoToast('Autenticação necessária para transferências acima de R$5.000,00.')
+    })
+}) 
