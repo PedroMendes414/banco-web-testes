@@ -4,10 +4,10 @@
   "main": "index.js",
   "scripts": {
     "test": "cypress run ",
-    "test-qa" : "cypress run ",
-    "test-prod" : "cypress run",
-    "cy:headed" : "cypress run --headed",
-    "cy:open" : "cypress open"
+    "test-qa": "cypress run ",
+    "test-prod": "cypress run",
+    "cy:headed": "cypress run --headed",
+    "cy:open": "cypress open"
   },
   "repository": {
     "type": "git",
@@ -22,6 +22,7 @@
   "homepage": "https://github.com/PedroMendes414/banco-web-testes#readme",
   "description": "",
   "devDependencies": {
-    "cypress": "^14.5.1"
+    "cypress": "^14.5.1",
+    "cypress-mochawesome-reporter": "^4.0.2"
   }
 }
